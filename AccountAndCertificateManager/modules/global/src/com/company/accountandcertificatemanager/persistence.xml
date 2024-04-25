@@ -2,7 +2,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="AccountAndCertificateManager" transaction-type="RESOURCE_LOCAL">
 
-        <class>com.company.accountandcertificatemanager.entity.ExtUser</class>
         <class>com.company.accountandcertificatemanager.entity.Certificate</class>
+        <class>com.company.accountandcertificatemanager.entity.RequestForCertificate</class>
     </persistence-unit>
 </persistence>

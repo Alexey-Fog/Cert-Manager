@@ -1,5 +1,6 @@
 package com.company.accountandcertificatemanager.entity;
 
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.security.entity.User;
 
@@ -8,10 +9,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Table(name = "ACCOUNTANDCERTIFICATEMANAGER_CERTIFICATE")
-@Entity(name = "accountandcertificatemanager_Certificate")
-public class Certificate extends StandardEntity {
-    private static final long serialVersionUID = 3858656151368916273L;
+@Table(name = "ACCOUNTANDCERTIFICATEMANAGER_REQUEST_FOR_CERTIFICATE")
+@Entity(name = "accountandcertificatemanager_RequestForCertificate")
+public class RequestForCertificate extends StandardEntity {
+    private static final long serialVersionUID = -1882004237651711911L;
+
+    @Transient
+    @NotNull
+    protected String typeOfRequestForCertificate;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,6 +40,15 @@ public class Certificate extends StandardEntity {
     @Column(name="DATE_TO")
     protected LocalDate dateTo;
 
+    public TypeOfRequestForCert getTypeOfRequestForCertificate() {
+        return TypeOfRequestForCert.fromId(typeOfRequestForCertificate);
+    }
+
+    public void setTypeOfRequestForCertificate(TypeOfRequestForCert typeOfRequestForCertificate) {
+        this.typeOfRequestForCertificate = typeOfRequestForCertificate == null ?
+                TypeOfRequestForCert.Create.getId() : typeOfRequestForCertificate.getId();
+    }
+
     public User getUser() {
         return user;
     }
@@ -51,6 +65,14 @@ public class Certificate extends StandardEntity {
         this.email = email;
     }
 
+    public String getResource() {
+        return resource;
+    }
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
+
     public LocalDate getDateFrom() {
         return dateFrom;
     }
@@ -65,13 +87,5 @@ public class Certificate extends StandardEntity {
 
     public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
-    }
-
-    public String getResource() {
-        return resource;
-    }
-
-    public void setResource(String resource) {
-        this.resource = resource;
     }
 }
