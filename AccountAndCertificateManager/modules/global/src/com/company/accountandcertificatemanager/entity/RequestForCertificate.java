@@ -1,6 +1,5 @@
 package com.company.accountandcertificatemanager.entity;
 
-import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.security.entity.User;
 

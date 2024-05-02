@@ -35,6 +35,7 @@ public class Certificate extends StandardEntity {
     @Column(name="DATE_TO")
     protected LocalDate dateTo;
 
+
     public User getUser() {
         return user;
     }
