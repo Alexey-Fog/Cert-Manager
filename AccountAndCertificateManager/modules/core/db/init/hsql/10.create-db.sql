@@ -10,7 +10,6 @@ create table ACCOUNTANDCERTIFICATEMANAGER_REQUEST_FOR_CERTIFICATE (
     DELETED_BY varchar(50),
     --
     USER_ID varchar(36),
-    EMAIL varchar(255),
     RESOURCE varchar(255),
     DATE_FROM date,
     DATE_TO date,
@@ -30,7 +29,6 @@ create table ACCOUNTANDCERTIFICATEMANAGER_CERTIFICATE (
     DELETED_BY varchar(50),
     --
     USER_ID varchar(36),
-    EMAIL varchar(255),
     RESOURCE varchar(255),
     DATE_FROM date,
     DATE_TO date,

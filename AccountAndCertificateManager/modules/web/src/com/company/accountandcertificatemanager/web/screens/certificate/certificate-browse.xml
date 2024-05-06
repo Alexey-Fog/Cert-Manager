@@ -7,7 +7,7 @@
     <data readOnly="true">
         <collection id="certificatesDc"
                     class="com.company.accountandcertificatemanager.entity.Certificate">
-            <view extends="_local">
+            <view extends="_local" systemProperties="true">
                 <property name="user" view="_minimal">
                     <property name="firstName"/>
                     <property name="lastName"/>
@@ -33,24 +33,24 @@
         </filter>
         <groupTable id="certificatesTable"
                     width="100%"
-                    dataContainer="certificatesDc">
+                    dataContainer="certificatesDc"
+                    multiselect="true"
+                    presentations="true">
             <actions>
                 <action id="create" type="create"/>
-                <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
                 <column id="user"/>
-                <column id="email"/>
                 <column id="resource"/>
                 <column id="dateFrom"/>
                 <column id="dateTo"/>
+                <column id="createdBy"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn" action="certificatesTable.create"/>
-                <button id="editBtn" action="certificatesTable.edit"/>
                 <button id="removeBtn" action="certificatesTable.remove"/>
             </buttonsPanel>
         </groupTable>

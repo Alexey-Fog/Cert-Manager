@@ -23,11 +23,6 @@ public class RequestForCertificate extends StandardEntity {
     protected User user;
 
     @NotNull
-    @Email
-    @Column(name = "EMAIL")
-    protected String email;
-
-    @NotNull
     @Column(name = "RESOURCE")
     protected String resource;
 
@@ -38,6 +33,7 @@ public class RequestForCertificate extends StandardEntity {
     @NotNull
     @Column(name="DATE_TO")
     protected LocalDate dateTo;
+
 
     public TypeOfRequestForCert getTypeOfRequestForCertificate() {
         return TypeOfRequestForCert.fromId(typeOfRequestForCertificate);
@@ -54,14 +50,6 @@ public class RequestForCertificate extends StandardEntity {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getResource() {
@@ -86,5 +74,9 @@ public class RequestForCertificate extends StandardEntity {
 
     public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
+    }
+
+    public void setTypeOfRequestForCertificate(String typeOfRequestForCertificate) {
+        this.typeOfRequestForCertificate = typeOfRequestForCertificate;
     }
 }

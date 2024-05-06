@@ -19,11 +19,6 @@ public class Certificate extends StandardEntity {
     protected User user;
 
     @NotNull
-    @Email
-    @Column(name = "EMAIL")
-    protected String email;
-
-    @NotNull
     @Column(name = "RESOURCE")
     protected String resource;
 
@@ -36,20 +31,14 @@ public class Certificate extends StandardEntity {
     protected LocalDate dateTo;
 
 
+
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public LocalDate getDateFrom() {

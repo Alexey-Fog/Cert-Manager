@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
     <menu id="application-accountandcertificatemanager" insertBefore="administration" caption="mainMsg://menu_config.application-accountandcertificatemanager">
-        <item screen="accountandcertificatemanager_RequestForCertificate.browse"
-              caption="mainMsg://menu_config.accountandcertificatemanager_RequestForCertificate.browse"/>
         <item screen="accountandcertificatemanager_Certificate.browse"
               caption="mainMsg://menu_config.accountandcertificatemanager_Certificate.browse"/>
     </menu>

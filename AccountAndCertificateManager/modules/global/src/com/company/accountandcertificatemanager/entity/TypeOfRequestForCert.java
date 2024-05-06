@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 public enum TypeOfRequestForCert implements EnumClass<String> {
 
     Create("Создать"),
-    Renew("Продлить"),
+    Renew("Обновить"),
     Revoke("Отозвать");
 
     private String id;
