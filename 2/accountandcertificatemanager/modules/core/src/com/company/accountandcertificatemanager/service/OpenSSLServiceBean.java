@@ -2,7 +2,13 @@ package com.company.accountandcertificatemanager.service;
 
 import org.springframework.stereotype.Service;
 
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
+import java.util.Properties;
 
 @Service(OpenSSLService.NAME)
 public class OpenSSLServiceBean implements OpenSSLService {
@@ -99,4 +105,37 @@ public class OpenSSLServiceBean implements OpenSSLService {
             System.out.println("Ошибка при отзыве сертификата. Код завершения: " + process.exitValue());
         }
     }
+
+    @Override
+    public void sendEmail(String userEmail) throws MessagingException {
+        String from = "your-email@example.com"; // Замените на ваш адрес электронной почты
+        String to = userEmail;
+
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.host", "smtp.freesmtpservers.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getDefaultInstance(properties);
+
+        MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Ваши сертификаты");
+
+            Multipart multipart = new MimeMultipart();
+
+//            for (String certificateFile : certificateFiles) {
+//                MimeBodyPart attachmentPart = new MimeBodyPart();
+//                attachmentPart.attachFile(certificateFile);
+//                multipart.addBodyPart(attachmentPart);
+//            }
+
+            message.setContent(multipart);
+
+            Transport.send(message);
+            Boolean t = true;
+    }
+
+
 }

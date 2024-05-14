@@ -1,5 +1,7 @@
 package com.company.accountandcertificatemanager.service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import java.io.IOException;
 
 public interface OpenSSLService {
@@ -9,7 +11,9 @@ public interface OpenSSLService {
                            String outputFolder, String opensslPath, String caconfPath)
             throws IOException, InterruptedException;
 
-    public void revokeCertificate(String certificateFileName, String outputFolder, String opensslPath,
+    void revokeCertificate(String certificateFileName, String outputFolder, String opensslPath,
                                   String caconfPath)
             throws IOException, InterruptedException;
+
+    void sendEmail(String userEmail) throws MessagingException;
 }
