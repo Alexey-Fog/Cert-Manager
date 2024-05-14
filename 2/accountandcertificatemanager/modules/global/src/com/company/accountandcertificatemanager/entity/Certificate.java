@@ -55,7 +55,7 @@ public class Certificate extends StandardEntity {
 
         Calendar c = Calendar.getInstance();
         c.setTime(createTs);
-        c.add(Calendar.DATE, (int)durationDays);
+        c.add(Calendar.DATE, durationDays.intValue());
         return c.getTime();
     }
 
