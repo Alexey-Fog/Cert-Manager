@@ -39,6 +39,8 @@
                 <column id="user"/>
                 <column id="durationDays"/>
                 <column id="endDate"/>
+                <column id="createTs"/>
+                <column id="createdBy"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
