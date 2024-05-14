@@ -37,6 +37,7 @@
             </actions>
             <columns>
                 <column id="user"/>
+                <column id="durationDays"/>
                 <column id="endDate"/>
             </columns>
             <rowsCount/>

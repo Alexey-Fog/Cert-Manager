@@ -25,7 +25,7 @@ public class Certificate extends StandardEntity {
     @NotNull
     @Column(name="DURATION_DAYS", nullable = false)
     @Positive
-    private long durationDays;
+    private Long durationDays;
 
     public User getUser() {
         return user;
@@ -35,11 +35,11 @@ public class Certificate extends StandardEntity {
         this.user = user;
     }
 
-    public long getDurationDays() {
+    public Long getDurationDays() {
         return durationDays;
     }
 
-    public void setDurationDays(long durationDays) {
+    public void setDurationDays(Long durationDays) {
         this.durationDays = durationDays;
     }
 
