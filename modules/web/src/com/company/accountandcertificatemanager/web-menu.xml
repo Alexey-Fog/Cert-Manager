@@ -3,5 +3,7 @@
     <menu id="application-accountandcertificatemanager" insertBefore="administration" caption="mainMsg://menu_config.application-accountandcertificatemanager">
         <item screen="accountandcertificatemanager_Certificate.browse"
               caption="mainMsg://menu_config.accountandcertificatemanager_Certificate.browse"/>
+        <item screen="accountandcertificatemanager_UserCertificate.browse"
+              caption="mainMsg://menu_config.accountandcertificatemanager_UserCertificate.browse"/>
     </menu>
 </menu-config>

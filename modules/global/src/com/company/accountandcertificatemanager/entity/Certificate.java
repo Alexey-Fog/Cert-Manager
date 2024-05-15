@@ -26,6 +26,10 @@ public class Certificate extends StandardEntity {
     @Positive
     private Long durationDays;
 
+    @NotNull
+    @Column(name="REVOKED", nullable = false)
+    private Boolean revoked;
+
     public User getUser() {
         return user;
     }
@@ -42,9 +46,17 @@ public class Certificate extends StandardEntity {
         this.durationDays = durationDays;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setDurationDays(Date endDate) {
         long diff = endDate.getTime() - createTs.getTime();
         durationDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    public Boolean getRevoked() {
+        return revoked;
+    }
+
+    public void setRevoked(Boolean revoked) {
+        this.revoked = revoked;
     }
 
     @Transient

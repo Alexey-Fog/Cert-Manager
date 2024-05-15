@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
-        caption="msg://certificateBrowse.caption"
+        caption="msg://userCertificateBrowse.caption"
         focusComponent="certificatesTable"
         messagesPack="com.company.accountandcertificatemanager.web.screens.certificate">
     <data readOnly="true">
@@ -32,7 +32,6 @@
                     dataContainer="certificatesDc">
             <actions>
                 <action id="create" type="create"/>
-                <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
@@ -45,7 +44,6 @@
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn" action="certificatesTable.create"/>
-                <button id="editBtn" action="certificatesTable.edit"/>
                 <button id="removeBtn" action="certificatesTable.remove"/>
             </buttonsPanel>
         </groupTable>
