@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
-        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://certificateBrowse.caption"
         focusComponent="certificatesTable"
         messagesPack="com.company.accountandcertificatemanager.web.screens.certificate">
@@ -9,6 +8,7 @@
                     class="com.company.accountandcertificatemanager.entity.Certificate">
             <view extends="_local">
                 <property name="user" view="_minimal"/>
+                <property name="revoked" view="_minimal"/>
                 <property name="endDate"/>
             </view>
             <loader id="certificatesDl">

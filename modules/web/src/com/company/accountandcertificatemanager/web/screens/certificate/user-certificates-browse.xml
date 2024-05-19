@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
-        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
-        caption="msg://userCertificateBrowse.caption"
+        caption="msg://userCertificatesBrowse.caption"
         focusComponent="certificatesTable"
         messagesPack="com.company.accountandcertificatemanager.web.screens.certificate">
     <data readOnly="true">
@@ -9,11 +8,12 @@
                     class="com.company.accountandcertificatemanager.entity.Certificate">
             <view extends="_local">
                 <property name="user" view="_minimal"/>
+                <property name="revoked" view="_minimal"/>
                 <property name="endDate"/>
             </view>
             <loader id="certificatesDl">
                 <query>
-                    <![CDATA[select e from accountandcertificatemanager_Certificate e]]>
+                    <![CDATA[select e from accountandcertificatemanager_Certificate e where e.user.login like :ulogin]]>
                 </query>
             </loader>
         </collection>
@@ -22,6 +22,11 @@
                 width="800"/>
     <layout expand="certificatesTable"
             spacing="true">
+        <pickerField id="userField" metaClass="sec$User" caption="msg://userField">
+            <actions>
+                <action id="lookup" type="picker_lookup"/>
+            </actions>
+        </pickerField>
         <filter id="filter"
                 applyTo="certificatesTable"
                 dataLoader="certificatesDl">
@@ -29,22 +34,23 @@
         </filter>
         <groupTable id="certificatesTable"
                     width="100%"
-                    dataContainer="certificatesDc">
+                    dataContainer="certificatesDc"
+                    multiselect="false">
             <actions>
-                <action id="create" type="create"/>
-                <action id="remove" type="remove"/>
+                <action id="create" invoke="onCreateClick"/>
             </actions>
             <columns>
-                <column id="user"/>
+                <column id="createdBy"  />
+                <column id="createTs"/>
                 <column id="durationDays"/>
-                <column id="revoked"/>
                 <column id="endDate"/>
+                <column id="revoked"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="certificatesTable.create"/>
-                <button id="removeBtn" action="certificatesTable.remove"/>
+                <button caption="msg://create" id="btnCreate" action="certificatesTable.create"/>
+                <button caption="msg://revoke" id="btnRevoke" enable="false"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

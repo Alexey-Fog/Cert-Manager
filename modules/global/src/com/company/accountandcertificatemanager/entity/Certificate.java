@@ -2,6 +2,7 @@ package com.company.accountandcertificatemanager.entity;
 
 import com.esotericsoftware.kryo.NotNull;
 import com.haulmont.chile.core.annotations.MetaProperty;
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.security.entity.User;
 
@@ -13,22 +14,21 @@ import java.util.concurrent.TimeUnit;
 
 @Table(name = "ACCOUNTANDCERTIFICATEMANAGER_CERTIFICATE")
 @Entity(name = "accountandcertificatemanager_Certificate")
+@NamePattern("%s|createdBy")
 public class Certificate extends StandardEntity {
     private static final long serialVersionUID = 3858656151368916273L;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
-    @NotNull
     @Column(name="DURATION_DAYS", nullable = false)
     @Positive
     private Long durationDays;
 
-    @NotNull
-    @Column(name="REVOKED", nullable = false)
-    private Boolean revoked;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "REVOKE_ID")
+    private Revoke revoked = null;
 
     public User getUser() {
         return user;
@@ -51,15 +51,14 @@ public class Certificate extends StandardEntity {
         durationDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
 
-    public Boolean getRevoked() {
+    public Revoke getRevoked() {
         return revoked;
     }
 
-    public void setRevoked(Boolean revoked) {
+    public void setRevoked(Revoke revoked) {
         this.revoked = revoked;
     }
 
-    @Transient
     @MetaProperty(related = {"createTs", "durationDays"})
     public Date getEndDate() {
         if (createTs == null) return null;

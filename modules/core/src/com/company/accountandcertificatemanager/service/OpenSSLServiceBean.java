@@ -2,10 +2,14 @@ package com.company.accountandcertificatemanager.service;
 
 import org.springframework.stereotype.Service;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -75,6 +79,7 @@ public class OpenSSLServiceBean implements OpenSSLService {
 //                }
 //            }
 //        }
+
     }
 
     @Override
@@ -89,17 +94,17 @@ public class OpenSSLServiceBean implements OpenSSLService {
 
         int exitValue = runProcess(opensslCommand);
 
-        return (exitValue == 0) ? true : false;
+        return exitValue == 0;
     }
 
     @Override
     public void sendEmail(String userEmail) throws MessagingException {
-        String from = "your-email@example.com"; // Замените на ваш адрес электронной почты
+        String from = "email@example.com";
         String to = userEmail;
 
         Properties properties = System.getProperties();
         properties.put("mail.smtp.host", "smtp.freesmtpservers.com");
-        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.port", "25");
         properties.put("mail.smtp.starttls.enable", "true");
 
         Session session = Session.getDefaultInstance(properties);
@@ -110,6 +115,16 @@ public class OpenSSLServiceBean implements OpenSSLService {
         message.setSubject("Ваши сертификаты");
 
         Multipart multipart = new MimeMultipart();
+
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setText("Hello, my friend! Here are your files:");
+        multipart.addBodyPart(messageBodyPart);
+
+        messageBodyPart = new MimeBodyPart();
+        FileDataSource source = new FileDataSource("C:\\Users\\alpet\\Downloads\\newEmpty.zip");
+        messageBodyPart.setDataHandler(new DataHandler(source));
+        multipart.addBodyPart(messageBodyPart);
+
 
 //            for (String certificateFile : certificateFiles) {
 //                MimeBodyPart attachmentPart = new MimeBodyPart();

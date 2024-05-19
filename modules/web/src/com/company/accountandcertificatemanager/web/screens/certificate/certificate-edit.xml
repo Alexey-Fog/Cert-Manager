@@ -24,15 +24,20 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
-                <textField id="durationDaysField" property="durationDays"/>
-                <dateField id="endDateField" property="endDate"/>
+                <textField id="durationDaysField" property="durationDays" visible="false"/>
+                <hbox>
+                    <checkBox id="cbDuration" caption="msg://setDuration"/>
+                    <textField id="durationDaysF"/>
+                </hbox>
+                <hbox>
+                    <checkBox id="cbEndDate" caption="msg://setEndDate"/>
+                    <dateField id="endDateF" resolution="DAY"/>
+                </hbox>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
         </hbox>
-        <button id="emailBtn"
-                caption="Send email"/>
     </layout>
 </window>
