@@ -9,8 +9,9 @@ public interface OpenSSLService {
     void createCertificate(String user, String mail, String org, String res, String passw,
                            String outputFolder, String opensslPath, String caconfPath) throws IOException, InterruptedException;
 
-    Boolean revokeCertificate(String certificateFileName, String outputFolder, String opensslPath,
+    Boolean revokeCertificate(String user, String certificateFileName, String outputFolder, String opensslPath,
                               String caconfPath) throws IOException, InterruptedException;
 
     void sendEmail(String userEmail) throws MessagingException;
 }
+

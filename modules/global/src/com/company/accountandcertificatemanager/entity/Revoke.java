@@ -14,6 +14,7 @@ import javax.persistence.Table;
 public class Revoke extends StandardEntity {
     private static final long serialVersionUID = 968179161152136828L;
 
+    @NotNull
     @Column(name="REASON", nullable = false)
     private String reason;
 
@@ -25,3 +26,4 @@ public class Revoke extends StandardEntity {
         this.reason = reason;
     }
 }
+

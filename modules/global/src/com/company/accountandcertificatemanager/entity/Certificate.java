@@ -1,9 +1,9 @@
 package com.company.accountandcertificatemanager.entity;
 
-import com.esotericsoftware.kryo.NotNull;
 import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 import com.haulmont.cuba.security.entity.User;
 
 import javax.persistence.*;
@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+@PublishEntityChangedEvents
 @Table(name = "ACCOUNTANDCERTIFICATEMANAGER_CERTIFICATE")
 @Entity(name = "accountandcertificatemanager_Certificate")
 @NamePattern("%s|createdBy")
@@ -69,4 +70,14 @@ public class Certificate extends StandardEntity {
         return c.getTime();
     }
 
+    @MetaProperty(related = {"revoked"})
+    public String getRevokedFormatted() {
+        if (revoked != null) {
+            return String.format("%s \n%s \nBy: %s",
+                    revoked.getCreateTs(),
+                    revoked.getReason(),
+                    revoked.getCreatedBy());
+        }
+        return null;
+    }
 }

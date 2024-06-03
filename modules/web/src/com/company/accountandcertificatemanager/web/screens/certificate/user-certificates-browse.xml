@@ -8,8 +8,10 @@
                     class="com.company.accountandcertificatemanager.entity.Certificate">
             <view extends="_local">
                 <property name="user" view="_minimal"/>
-                <property name="revoked" view="_minimal"/>
+                <property name="revoked"/>
                 <property name="endDate"/>
+                <property name="createdBy"/>
+                <property name="createTs"/>
             </view>
             <loader id="certificatesDl">
                 <query>
@@ -36,20 +38,17 @@
                     width="100%"
                     dataContainer="certificatesDc"
                     multiselect="false">
-            <actions>
-                <action id="create" invoke="onCreateClick"/>
-            </actions>
             <columns>
                 <column id="createdBy"  />
                 <column id="createTs"/>
                 <column id="durationDays"/>
                 <column id="endDate"/>
-                <column id="revoked"/>
+                <column id="revokedFormatted" caption="mainMsg://revoked" maxTextLength="20"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button caption="msg://create" id="btnCreate" action="certificatesTable.create"/>
+                <button caption="msg://create" id="btnCreate"/>
                 <button caption="msg://revoke" id="btnRevoke" enable="false"/>
             </buttonsPanel>
         </groupTable>

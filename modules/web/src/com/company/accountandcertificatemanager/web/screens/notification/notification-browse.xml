@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://notificationBrowse.caption"
+        focusComponent="notificationsTable"
+        messagesPack="com.company.accountandcertificatemanager.web.screens.notification">
+    <data readOnly="true">
+        <collection id="notificationsDc"
+                    class="com.company.accountandcertificatemanager.entity.Notification">
+            <view extends="_local">
+                <property name="user" view="_minimal"/>
+                <property name="createTs"/>
+            </view>
+            <loader id="notificationsDl">
+                <query>
+                    <![CDATA[select e from accountandcertificatemanager_Notification e order by e.createTs desc]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.user = :currentUser</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="notificationsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="notificationsTable"
+                dataLoader="notificationsDl">
+        </filter>
+        <checkBox id="withReadNotificationsCheckBox" caption="mainMsg://showRiddenNotifications"/>
+        <button id="markAllChecked" caption="mainMsg://markAllChecked"/>
+        <groupTable id="notificationsTable"
+                    width="100%"
+                    dataContainer="notificationsDc">
+            <actions>
+            </actions>
+            <columns>
+                <column id="createTs"/>
+                <column id="checkDate"/>
+                <column id="topic"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

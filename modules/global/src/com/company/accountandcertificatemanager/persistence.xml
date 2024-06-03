@@ -4,5 +4,6 @@
 
         <class>com.company.accountandcertificatemanager.entity.Certificate</class>
         <class>com.company.accountandcertificatemanager.entity.Revoke</class>
+        <class>com.company.accountandcertificatemanager.entity.Notification</class>
     </persistence-unit>
 </persistence>

@@ -36,6 +36,8 @@ cuba {
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
+    appComponent('com.haulmont.addon.globalevents:cubaglevt-global:0.6.1')
+    appComponent('com.haulmont.addon.helium:helium-global:0.4.1')
 }
 
 def hsql = 'org.hsqldb:hsqldb:2.4.1'

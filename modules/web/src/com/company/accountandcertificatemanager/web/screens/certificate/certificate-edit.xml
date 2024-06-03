@@ -13,12 +13,12 @@
             <loader/>
         </instance>
     </data>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode height="180"
+                width="600"/>
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="certificateDc">
-            <column width="350px">
-                <pickerField id="userField" property="user">
+            <column width="550">
+                <pickerField id="userField" property="user" visible="false">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
@@ -30,7 +30,7 @@
                     <textField id="durationDaysF"/>
                 </hbox>
                 <hbox>
-                    <checkBox id="cbEndDate" caption="msg://setEndDate"/>
+                    <checkBox id="cbEndDate" caption="msg://endDateF"/>
                     <dateField id="endDateF" resolution="DAY"/>
                 </hbox>
             </column>

@@ -1,5 +1,11 @@
 package com.company.accountandcertificatemanager.web.screens.certificate;
 
+import com.company.accountandcertificatemanager.service.NotificationService;
+import com.company.accountandcertificatemanager.service.OpenSSLService;
+import com.haulmont.bali.events.Subscription;
+import com.haulmont.cuba.core.global.Messages;
+import com.haulmont.cuba.core.global.PersistenceHelper;
+import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.screen.*;
@@ -8,9 +14,11 @@ import com.haulmont.cuba.security.entity.User;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 @UiController("accountandcertificatemanager_Certificate.edit")
 @UiDescriptor("certificate-edit.xml")
@@ -29,6 +37,14 @@ public class CertificateEdit extends StandardEditor<Certificate> {
     private DateField<Date> endDateF;
     @Inject
     private TextField<Long> durationDaysField;
+    @Inject
+    private OpenSSLService openSSLService;
+    @Inject
+    private Messages messages;
+    @Inject
+    private Dialogs dialogs;
+    @Inject
+    private NotificationService notificationService;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -37,7 +53,7 @@ public class CertificateEdit extends StandardEditor<Certificate> {
             if (!cbDuration.isChecked()) return;
             if (durationDaysF.getValue() != null && !(durationDaysF.getValue().toString().isEmpty()) && StringUtils.isNumeric(durationDaysF.getValue().toString())) {
                 Integer duration = Integer.parseInt(durationDaysF.getValue().toString());
-                java.util.Calendar c = java.util.Calendar.getInstance();
+                Calendar c = Calendar.getInstance();
                 c.setTime(new Date(System.currentTimeMillis()));
                 c.add(Calendar.DATE, duration);
                 endDateF.setValue(c.getTime());
@@ -56,13 +72,6 @@ public class CertificateEdit extends StandardEditor<Certificate> {
             }
             else durationDaysF.setValue("");
         });
-    }
-
-    @Subscribe
-    public void onAfterInit(AfterInitEvent event) {
-        if (userField.getValue() != null){
-            userField.setVisible(false);
-        }
     }
 
     private Boolean checked = false;
@@ -88,8 +97,39 @@ public class CertificateEdit extends StandardEditor<Certificate> {
 
     @Subscribe
     public void onBeforeCommitChanges(BeforeCommitChangesEvent event) {
-        
+        User user = userField.getValue();
+
+        String org = "MRGENG";
+        String res = "gitlab.mrgeng.ru";
+        String passw = "tmNyFR1sRs52-gF";
+        String outputFolder = "C:\\";
+        String opensslPath = "D:\\OpenSSL-Win64\\bin\\openssl.exe";
+        String caconfPath = "";
+
+        try {
+            // Вызов метода создания сертификата
+            openSSLService.createCertificate(user.getName(), user.getEmail(),
+                    org, res, passw, outputFolder, opensslPath, caconfPath);
+
+        } catch (IOException | InterruptedException e) {
+            // Отмена сохранения
+            event.preventCommit();
+            dialogs.createMessageDialog().withCaption("Information")
+                    .withMessage(messages.getMessage(getClass(), "certCreateError") + e.getMessage()).show();
+        }
     }
 
+    @Subscribe
+    public void onAfterCommitChanges(AfterCommitChangesEvent event) {
+        Certificate editedEntity = getEditedEntity();
+        createNotification(
+                "Сертификат создан",
+                "Период действия: " + editedEntity.getCreateTs() + " - " + editedEntity.getEndDate(),
+                editedEntity.getUser()
+        );
+    }
 
+    private void createNotification(String topic, String message, User user) {
+        notificationService.fireNotification(new NotificationService.NotificationInfo(topic, message), user);
+    }
 }

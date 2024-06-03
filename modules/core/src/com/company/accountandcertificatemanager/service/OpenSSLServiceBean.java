@@ -26,7 +26,7 @@ public class OpenSSLServiceBean implements OpenSSLService {
     @Override
     public void createCertificate(String user, String mail, String org, String res, String passw,
                                   String outputFolder, String opensslPath, String caconfPath) throws IOException, InterruptedException {
-// Создание .key и .csr
+        // Создание .key и .csr
         String[] opensslCommand1 = {
                 opensslPath,
                 "req", "-new",
@@ -35,7 +35,6 @@ public class OpenSSLServiceBean implements OpenSSLService {
                 "-subj", "/C=RU/ST=SPb/O=" + org + "/OU=" + user + "/CN=" + res + "/emailAddress=" + mail,
                 "-out", outputFolder + "\\" + user + ".csr"
         };
-
         // Создание .crt
         String[] opensslCommand2 = {
                 opensslPath,
@@ -44,7 +43,6 @@ public class OpenSSLServiceBean implements OpenSSLService {
                 "-out", outputFolder + "\\" + user + ".crt",
                 "-batch"
         };
-
         // Создание .p12
         String[] opensslCommand3 = {
                 opensslPath,
@@ -53,7 +51,6 @@ public class OpenSSLServiceBean implements OpenSSLService {
                 "-clcerts", "-out", outputFolder + "\\" + user + ".p12",
                 "-passout", "pass:" + passw
         };
-
         // Создание .pem
         String[] opensslCommand4 = {
                 opensslPath,
@@ -63,7 +60,7 @@ public class OpenSSLServiceBean implements OpenSSLService {
                 "-passout", "pass:" + passw
         };
 
-        int exitValue = runProcess(opensslCommand1);
+        //int exitValue = runProcess(opensslCommand1);
 //      if (exitValue == 0) {
 //            exitValue = runProcess(opensslCommand2);
 //
@@ -83,18 +80,19 @@ public class OpenSSLServiceBean implements OpenSSLService {
     }
 
     @Override
-    public Boolean revokeCertificate(String certificateFileName, String outputFolder, String opensslPath,
+    public Boolean revokeCertificate(String user, String certificateFileName, String outputFolder, String opensslPath,
                                      String caconfPath) throws IOException, InterruptedException {
         String[] opensslCommand = {
                 opensslPath,
                 "ca", "-config", caconfPath,
-                "-revoke", outputFolder + "\\" + certificateFileName,
+                "-revoke", outputFolder + "\\" + user + ".pem",
                 "-batch"
         };
 
-        int exitValue = runProcess(opensslCommand);
+        //int exitValue = runProcess(opensslCommand);
 
-        return exitValue == 0;
+        //return exitValue == 0;
+        return true;
     }
 
     @Override

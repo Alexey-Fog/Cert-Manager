@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://notificationEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.accountandcertificatemanager.web.screens.notification">
+    <data>
+        <instance id="notificationDc"
+                  class="com.company.accountandcertificatemanager.entity.Notification">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode height="AUTO"
+                width="600"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form">
+            <column width="350px">
+                <hbox spacing="true">
+                    <label id="topicLabel" stylename="bold" value="Тема: "/>
+                    <label id="topicValueLabel" width="100%" dataContainer="notificationDc" property="topic"/>
+                </hbox>
+                <hbox>
+                    <label id="messageLabel" stylename="bold" value="Сообщение: "/>
+                    <label id="messageValueLabel" width="100%" dataContainer="notificationDc"
+                           property="message"/>
+                </hbox>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+        </hbox>
+    </layout>
+</window>

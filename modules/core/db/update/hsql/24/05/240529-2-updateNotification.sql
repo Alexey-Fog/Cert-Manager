@@ -1,0 +1,1 @@
+alter table ACCOUNTANDCERTIFICATEMANAGER_NOTIFICATION add column LINK varchar(512) ;

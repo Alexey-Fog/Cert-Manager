@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
-    <menu id="application-accountandcertificatemanager" insertBefore="administration" caption="mainMsg://menu_config.application-accountandcertificatemanager">
-        <item screen="accountandcertificatemanager_UserCertificates.browse"
-              caption="mainMsg://menu_config.accountandcertificatemanager_UserCertificates.browse"/>
-        <item screen="accountandcertificatemanager_Certificate.browse"
-              caption="mainMsg://menu_config.accountandcertificatemanager_Certificate.browse"/>
-    </menu>
+    <item screen="accountandcertificatemanager_Notification.browse"
+          caption="mainMsg://menu_config.accountandcertificatemanager_Notification.browse"
+          insertBefore="certs"
+          />
+    <item screen="accountandcertificatemanager_UserCertificates.browse"
+          id="certs"
+          caption="mainMsg://menu_config.accountandcertificatemanager_UserCertificates.browse"
+          insertBefore="administration"/>
 </menu-config>

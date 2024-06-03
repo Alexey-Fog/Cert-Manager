@@ -14,8 +14,9 @@
             <map>
                 <entry key="accountandcertificatemanager_OpenSSLService"
                        value="com.company.accountandcertificatemanager.service.OpenSSLService"/>
+                <entry key="accountandcertificatemanager_NotificationService"
+                       value="com.company.accountandcertificatemanager.service.NotificationService"/>
             </map>
         </property>
     </bean>
-
 </beans>
