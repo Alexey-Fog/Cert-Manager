@@ -19,7 +19,6 @@ import com.company.accountandcertificatemanager.entity.Notification;
 import com.haulmont.cuba.security.entity.User;
 
 import javax.inject.Inject;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;

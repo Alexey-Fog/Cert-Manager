@@ -2,11 +2,8 @@ package com.company.accountandcertificatemanager.web.screens.certificate;
 
 import com.company.accountandcertificatemanager.service.NotificationService;
 import com.company.accountandcertificatemanager.service.OpenSSLService;
-import com.haulmont.bali.events.Subscription;
 import com.haulmont.cuba.core.global.Messages;
-import com.haulmont.cuba.core.global.PersistenceHelper;
 import com.haulmont.cuba.gui.Dialogs;
-import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.accountandcertificatemanager.entity.Certificate;
@@ -18,7 +15,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 
 @UiController("accountandcertificatemanager_Certificate.edit")
 @UiDescriptor("certificate-edit.xml")
@@ -57,7 +53,7 @@ public class CertificateEdit extends StandardEditor<Certificate> {
                 c.setTime(new Date(System.currentTimeMillis()));
                 c.add(Calendar.DATE, duration);
                 endDateF.setValue(c.getTime());
-                durationDaysField.setValue(duration.longValue()+0);
+                durationDaysField.setValue(duration.longValue());
             }
         });
         endDateF.setRangeStart(new Date(System.currentTimeMillis()));
@@ -109,7 +105,7 @@ public class CertificateEdit extends StandardEditor<Certificate> {
         try {
             // Вызов метода создания сертификата
             openSSLService.createCertificate(user.getName(), user.getEmail(),
-                    org, res, passw, outputFolder, opensslPath, caconfPath);
+                    org, res, passw, outputFolder, opensslPath, caconfPath, (Long) durationDaysF.getValue());
 
         } catch (IOException | InterruptedException e) {
             // Отмена сохранения

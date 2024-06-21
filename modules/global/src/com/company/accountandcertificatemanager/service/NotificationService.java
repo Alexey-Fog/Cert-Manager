@@ -1,7 +1,6 @@
 package com.company.accountandcertificatemanager.service;
 
 import com.haulmont.cuba.security.entity.User;
-
 import java.io.Serializable;
 
 public interface NotificationService {

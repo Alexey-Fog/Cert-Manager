@@ -5,7 +5,6 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 import com.haulmont.cuba.security.entity.User;
-
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 import java.util.Calendar;
@@ -34,28 +33,22 @@ public class Certificate extends StandardEntity {
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
-
     public Long getDurationDays() {
         return durationDays;
     }
-
     public void setDurationDays(Long durationDays) {
         this.durationDays = durationDays;
     }
-
     public void setDurationDays(Date endDate) {
         long diff = endDate.getTime() - createTs.getTime();
         durationDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
-
     public Revoke getRevoked() {
         return revoked;
     }
-
     public void setRevoked(Revoke revoked) {
         this.revoked = revoked;
     }

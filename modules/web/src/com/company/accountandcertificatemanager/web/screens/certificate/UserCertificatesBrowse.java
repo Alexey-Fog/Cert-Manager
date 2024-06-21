@@ -48,18 +48,21 @@ public class UserCertificatesBrowse extends StandardLookup<Certificate> {
 
     @Subscribe
     public void onInit(InitEvent event) {
-        userField.setValue(userSessionSource.getUserSession().getUser());
+        if (userField.getValue() == null) userField.setValue(userSessionSource.getUserSession().getUser());
         certificatesDl.setParameter("ulogin", userField.getValue().getLoginLowerCase());
         userField.addValueChangeListener(userValueChangeEvent -> {
             certificatesDl.setParameter("ulogin", userField.getValue().getLoginLowerCase());
             certificatesDl.load();
         });
-
         certificatesTable.addSelectionListener(
                 certificateSelectionEvent ->
                     btnRevoke.setEnabled(!certificatesTable.getSelected().isEmpty() &&
                             certificatesTable.getSingleSelected().getRevoked() == null)
         );
+        certificatesDl.setParameter("ulogin", userField.getValue().getLoginLowerCase());
+        certificatesDl.load();
+        btnRevoke.setEnabled(!certificatesTable.getSelected().isEmpty() &&
+                certificatesTable.getSingleSelected().getRevoked() == null);
     }
 
     @Subscribe("btnCreate")
@@ -98,17 +101,16 @@ public class UserCertificatesBrowse extends StandardLookup<Certificate> {
                 try {
                     openSSLService.revokeCertificate(
                             selectedCertificate.getUser().getName(),
-                            "certFileName",
-                            "outputFolder",  // заменить
-                            "opensslPath",  // заменить
-                            "caconfPath"  // заменить
+                            "C:\\certs\\maimn.crt",  // заменить
+                            "C:\\certs",  // заменить
+                            "D:\\OpenSSL-Win64\\bin\\openssl.exe",  // заменить
+                            "C:\\certs\\ca.conf"  // заменить
                     );
                     selectedCertificate.setRevoked(newRevoke);
                     dataManager.commit(selectedCertificate);
                     createNotification(
                             "Сертификат отозван",
-                            "Сертификат отозван пользователем: " + newRevoke.getCreatedBy() +
-                                    " по причине: " + newRevoke.getReason(),
+                            "Сертификат отозван пользователем: " + userSessionSource.getUserSession().getUser(),
                             selectedCertificate.getUser());
                 } catch (Exception e) {
                     dataManager.remove(newRevoke);
@@ -117,7 +119,7 @@ public class UserCertificatesBrowse extends StandardLookup<Certificate> {
                             .withMessage(messages.getMessage(getClass(), "revokeExeption"))
                             .show();
                 }
-                certificatesDl.load(); // Reload the table
+                certificatesDl.load();
             }
         });
         editorScreen.show();

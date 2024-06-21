@@ -2,7 +2,7 @@
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
     <item screen="accountandcertificatemanager_Notification.browse"
           caption="mainMsg://menu_config.accountandcertificatemanager_Notification.browse"
-          insertBefore="certs"
+          insertBefore="administration"
           />
     <item screen="accountandcertificatemanager_UserCertificates.browse"
           id="certs"
